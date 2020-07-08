@@ -38,6 +38,8 @@ public class ChromeDriverManager extends DriverManager {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("disable-infobars");
 		options.addArguments("start-maximized");
+		options.addArguments("--incognito");
+		options.addArguments("--disable-notifications");
 		return options;
 	}
 

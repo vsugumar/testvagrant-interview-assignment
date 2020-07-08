@@ -7,6 +7,7 @@ import java.util.List;
 import static java.util.stream.Collectors.*;
 import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -43,6 +44,9 @@ public class WeatherPage extends PageHandler {
 	
 	@FindBy(xpath = "//b[contains(text(), 'Humidity')]")
 	WebElement humidity;
+	
+	@FindBy(xpath = "//*[text()='No Thanks']")
+	WebElement noThanksLink;
 
 	private final String xpathOfParentMap = "//*[contains(@class, 'leaflet-marker-pane')]";
 	private final String xpathOfMapElements = "//*[contains(@class, 'leaflet-marker-icon')]";
@@ -56,8 +60,15 @@ public class WeatherPage extends PageHandler {
 
 	protected void goToWeatherPage() {
 		waitTillElementToBeClickable(2, subMenu);
-		subMenu.click();
-		weatherMenu.click();	
+		try {
+			subMenu.click();
+			weatherMenu.click();
+		} catch (ElementClickInterceptedException e) {
+			noThanksLink.click();
+			waitTillElementToBeClickable(2, subMenu);
+			subMenu.click();
+			weatherMenu.click();
+		}	
 	}
 
 	protected ArrayList<String> getCitiesAppearingInMap() {
