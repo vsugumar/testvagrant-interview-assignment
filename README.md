@@ -1,6 +1,6 @@
 ﻿# Interview Assignment
 
-One Paragraph of project description goes here
+Phase 1, 2 and 3 of the coding assignment.
 
 ## Getting Started
 
