@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Regression Test">
+	<test name="Home Page">
+		<classes>
+			<class name="" />
+		</classes>
+	</test>
+</suite>
