@@ -30,7 +30,7 @@ public abstract class DriverManager {
 			} else if(Utils.browserName.equals("FIREFOX")) {
 				return basePath+"linux-drivers"+File.separator+"geckodriver";
 			}
-		} else if(os.equalsIgnoreCase("windows")) {
+		} else if(os.contains("windows")) {
 			if(Utils.browserName.equals("CHROME")) {
 				return basePath+"windows-drivers"+File.separator+"chromedriver.exe";
 			} else if(Utils.browserName.equals("FIREFOX")) {
