@@ -7,7 +7,7 @@ Phase 1, 2 and 3 of the coding assignment.
 Clone the reposity in your local using the below command
 
 ```
-git clone https://github.com/vsugumar/testvagrant-interview-assignment
+git clone https://github.com/vsugumar/testvagrant-interview-assignment.git
 ```
 
 ### Running the Tests
