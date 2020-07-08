@@ -11,8 +11,10 @@ public class DriverManagerFactory {
 		switch(driverType) {
 		case CHROME:
 			driverManager = new ChromeDriverManager();
+			break;
 		case FIREFOX:
 			driverManager = new FirefoxDriverManager();
+			break;
 		default:
 			break;
 		}

@@ -7,7 +7,11 @@ public class Utils {
 	public static String getBrowser() {
 		String browser = System.getProperty("BROWSER");
 
-		if (browser.equalsIgnoreCase("chrome")) {
+		
+		if (browser == null) {
+			browserName = "CHROME";
+			return browserName;
+		}else if (browser.equalsIgnoreCase("chrome")) {
 			browserName = "CHROME";
 			return browserName;
 		} else if (browser.equalsIgnoreCase("firefox")) {
@@ -19,10 +23,9 @@ public class Utils {
 		} else if (browser.equalsIgnoreCase("ie")) {
 			browserName = "IE";
 			return browserName;
-		} else {
-			browserName = "CHROME";
-			return browserName;	
 		}
+		
+		return browser; 
 	}
 
 }
