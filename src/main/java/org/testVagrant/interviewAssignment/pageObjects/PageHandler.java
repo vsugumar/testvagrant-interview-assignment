@@ -31,6 +31,10 @@ public class PageHandler {
 	public void andSetTimeout() {
 		driver.manage().timeouts().implicitlyWait(elementTimeOut, TimeUnit.SECONDS);
 	}
+	
+	public void maximize() {
+		driver.manage().window().maximize();
+	}
 
 	protected void waitTillChildElementsToBeVisible(long timeOutInSeconds, String parentElementXpath, String childElementXpath) {
 		setExplicitWaitTimeOutAndWait(timeOutInSeconds).until(visibilityOfNestedElementsLocatedBy(By.xpath(parentElementXpath), 

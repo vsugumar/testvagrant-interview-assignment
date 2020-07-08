@@ -23,6 +23,7 @@ public class WeatherPageTest extends WeatherPage{
 		driver = drManager.getDriver();
 		driver.get(PageHandler.appURL);
 		initializeElements().andSetTimeout();
+		maximize();
 		goToWeatherPage();
 	}
 	
