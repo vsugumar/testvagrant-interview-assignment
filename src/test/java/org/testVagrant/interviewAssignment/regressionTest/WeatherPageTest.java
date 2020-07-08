@@ -25,14 +25,14 @@ public class WeatherPageTest extends WeatherPage{
 		goToWeatherPage();
 	}
 	
-	@Test (enabled = false)
+	@Test 
 	private void validateDefaultCitySelection() {
 		ArrayList<String> citiesSelectedByDefault = getSelectedCities();
 		ArrayList<String> citiesAppearingInMap = getCitiesAppearingInMap();
 		assertThat(citiesSelectedByDefault, containsInAnyOrder(citiesAppearingInMap.toArray()));
 	}
 	
-	@Test (enabled = false)
+	@Test 
 	private void validateCitySelection() {
 		String[] citiesToBeSelected = {"Allahabad", "Ahmedabad", "Bhilwara", "Chandigarh"};
 		selectCities(citiesToBeSelected);
@@ -41,7 +41,7 @@ public class WeatherPageTest extends WeatherPage{
 		assertThat(selectedCities, containsInAnyOrder(citiesAppearingInMap.toArray()));
 	}
 	
-	@Test (enabled = false)
+	@Test 
 	private void validateIfTempIsDisplayedForSelectedCities() {
 		String[] citiesToBeSelected = {"Allahabad", "Ahmedabad", "Bhilwara", "Chandigarh"};
 		selectCities(citiesToBeSelected);
@@ -63,9 +63,7 @@ public class WeatherPageTest extends WeatherPage{
 			String actualTempDetails =  entryObj.getValue();
 			assertThat(actualTempDetails, containsString(city));
 			Arrays.asList(expectedTemperatureDetails).forEach(expectedTempDetail -> assertThat(actualTempDetails, containsString(expectedTempDetail)));
-
-		}
-		
+		}	
 	}
 	
 	

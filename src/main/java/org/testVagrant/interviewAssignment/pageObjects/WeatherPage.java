@@ -8,6 +8,7 @@ import static java.util.stream.Collectors.*;
 import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -51,8 +52,9 @@ public class WeatherPage extends PageHandler {
 	}
 
 	protected void goToWeatherPage() {
+		waitTillElementToBeClickable(2, subMenu);
 		subMenu.click();
-		weatherMenu.click();
+		weatherMenu.click();	
 	}
 
 	protected ArrayList<String> getCitiesAppearingInMap() {

@@ -44,6 +44,10 @@ public class PageHandler {
 	protected void waitTillVisibilityOfAllElements(long timeOutInSeconds, List<WebElement> elementsToBeVisible) {
 		setExplicitWaitTimeOutAndWait(timeOutInSeconds).until(visibilityOfAllElements(elementsToBeVisible));
 	}
+	
+	protected void waitTillElementToBeClickable(long timeOutInSeconds, WebElement elementsToBeClickable) {
+		setExplicitWaitTimeOutAndWait(timeOutInSeconds).until(elementToBeClickable(elementsToBeClickable));
+	}
 
 	private WebDriverWait setExplicitWaitTimeOutAndWait(long timeOutInSeconds) {
 		return new WebDriverWait(driver, timeOutInSeconds);

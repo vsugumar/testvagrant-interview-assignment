@@ -2,9 +2,14 @@
 <suite name="Regression Test">
 	<test name="Weather page">
 		<classes>
-			<class name="org.testVagrant.interviewAssignment.pageObjects.MasterPage" />
+			<class name="org.testVagrant.interviewAssignment.pageObjects.PageHandler" />
 			<class name="org.testVagrant.interviewAssignment.pageObjects.WeatherPage" />
 			<class name="org.testVagrant.interviewAssignment.regressionTest.WeatherPageTest" />
+		</classes>
+	</test>
+	<test name="Weather API">
+		<classes>
+			<class name="org.testVagrant.interviewAssignment.regressionTest.WeatherAPITest" />
 		</classes>
 	</test>
 </suite>
