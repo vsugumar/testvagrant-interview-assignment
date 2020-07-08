@@ -23,12 +23,24 @@ public abstract class DriverManager {
 
 	protected String getWebDriverPath() {
 		String os = System.getProperty("os.name");
-		String basePath = "src"+File.separator+"web-drivers"+File.separator+"linux-drivers"+File.separator;
+		String basePath = "src"+File.separator+"web-drivers"+File.separator;
 		if(os.equalsIgnoreCase("linux")) {
 			if(Utils.browserName.equals("CHROME")) {
-				return basePath+File.separator+"chromedriver";
+				return basePath+"linux-drivers"+File.separator+"chromedriver";
 			} else if(Utils.browserName.equals("FIREFOX")) {
-				return basePath+File.separator+"geckodriver";
+				return basePath+"linux-drivers"+basePath+File.separator+"geckodriver";
+			}
+		} else if(os.equalsIgnoreCase("windows")) {
+			if(Utils.browserName.equals("CHROME")) {
+				return basePath+"windows-drivers"+File.separator+"chromedriver.exe";
+			} else if(Utils.browserName.equals("FIREFOX")) {
+				return basePath+"windows-drivers"+File.separator+"geckodriver.exe";
+			}
+		} else if(os.equalsIgnoreCase("mac")) {
+			if(Utils.browserName.equals("CHROME")) {
+				return basePath+"mac-drivers"+File.separator+"chromedriver";
+			} else if(Utils.browserName.equals("FIREFOX")) {
+				return basePath+"mac-drivers"+File.separator+"geckodriver";
 			}
 		}
 		return null;

@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.*;
 import org.testVagrant.interviewAssignment.pageObjects.PageHandler;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class WeatherPageTest extends WeatherPage{
@@ -25,6 +26,11 @@ public class WeatherPageTest extends WeatherPage{
 		goToWeatherPage();
 	}
 	
+	@DataProvider(name="Cities")
+	public Object[] cityNamesProvider() {
+		return new Object[] {"Allahabad", "Ahmedabad", "Bhilwara"};
+	}
+	
 	@Test 
 	private void validateDefaultCitySelection() {
 		ArrayList<String> citiesSelectedByDefault = getSelectedCities();
@@ -32,36 +38,33 @@ public class WeatherPageTest extends WeatherPage{
 		assertThat(citiesSelectedByDefault, containsInAnyOrder(citiesAppearingInMap.toArray()));
 	}
 	
-	@Test 
-	private void validateCitySelection() {
-		String[] citiesToBeSelected = {"Allahabad", "Ahmedabad", "Bhilwara", "Chandigarh"};
-		selectCities(citiesToBeSelected);
+	@Test(dataProvider = "Cities")
+	private void validateCitySelection(String city) {
+		selectCity(city);
 		ArrayList<String> selectedCities = getSelectedCities();
 		ArrayList<String> citiesAppearingInMap = getCitiesAppearingInMap();
 		assertThat(selectedCities, containsInAnyOrder(citiesAppearingInMap.toArray()));
 	}
 	
-	@Test 
-	private void validateIfTempIsDisplayedForSelectedCities() {
-		String[] citiesToBeSelected = {"Allahabad", "Ahmedabad", "Bhilwara", "Chandigarh"};
-		selectCities(citiesToBeSelected);
+	@Test(dataProvider = "Cities")
+	private void validateIfTempIsDisplayedForSelectedCities(String city) {
+		selectCity(city);
 		isTempDisplayedForAllSelectedCities(getSelectedCities());
 	}
 	
-	@Test
-	private void validateWeatherDetails() {
-		String[] citiesToBeSelected = {"Ahmedabad", "Bhilwara", "Chandigarh"};
+	@Test(dataProvider = "Cities")
+	public void validateWeatherDetails(String city) {
 		String[] expectedTemperatureDetails = {"Condition", "Wind", "Humidity", "Temp in Degrees", "Temp in Fahrenheit"};
 		unselectAllCities(getSelectedCities());
-		selectCities(citiesToBeSelected);	
+		selectCity(city);	
 		HashMap<String, String> cityTempDetails = getTemperatureDetailsForSelectedCities(getSelectedCities());
 		Iterator<Map.Entry<String, String>> iterator = cityTempDetails.entrySet().iterator();
 		
 		while(iterator.hasNext()) {
 			Map.Entry<String, String> entryObj = iterator.next();
-			String city = entryObj.getKey();
+			String City = entryObj.getKey();
 			String actualTempDetails =  entryObj.getValue();
-			assertThat(actualTempDetails, containsString(city));
+			assertThat(actualTempDetails, containsString(City));
 			Arrays.asList(expectedTemperatureDetails).forEach(expectedTempDetail -> assertThat(actualTempDetails, containsString(expectedTempDetail)));
 		}	
 	}

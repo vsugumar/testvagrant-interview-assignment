@@ -38,7 +38,8 @@ public class WeatherAPITest {
 		assertThat(expectedCityName, is(equalTo(actualCityName)));
 	} 
 	
-	private HashMap<String, String> getWeatherInfoFromAPI(String city) throws IOException {
+	public static HashMap<String, String> getWeatherInfoFromAPI(String city) throws IOException {
+		HelperMethods helper = new HelperMethods();
 		HashMap<String, String> queryParams = new HashMap<>();
 		queryParams.put("q", city);
 		queryParams.put("units", "metric");
@@ -46,11 +47,11 @@ public class WeatherAPITest {
 		
 		HashMap<String, String> weatherInfo = new HashMap<>();
 		JsonPath response = helper.getResponse("data/2.5/weather", queryParams).jsonPath();
-		weatherInfo.put("temperature in C", String.valueOf(response.getFloat("main.temp")));
-		weatherInfo.put("humidity", String.valueOf(response.getFloat("main.humidity")));
+		weatherInfo.put("temperature in Celsius", String.valueOf(Math.round(response.getFloat("main.temp"))));
+		weatherInfo.put("humidity", String.valueOf(Math.round(response.getFloat("main.humidity"))));
 		queryParams.replace("units", "imperial");
 		response = helper.getResponse("data/2.5/weather", queryParams).jsonPath(); //For getting temperature in Fahrenheit
-		weatherInfo.put("temperature in F", String.valueOf(response.getFloat("main.temp")));
+		weatherInfo.put("temperature in Fahrenheit", String.valueOf(Math.round(response.getFloat("main.temp"))));
 		
 		return weatherInfo;
 

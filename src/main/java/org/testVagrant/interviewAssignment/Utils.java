@@ -1,5 +1,8 @@
 package org.testVagrant.interviewAssignment;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Properties;
 
 public class Utils {
 	public static String browserName;
@@ -26,6 +29,17 @@ public class Utils {
 		}
 		
 		return browser; 
+	}
+	
+	public static HashMap<String, String> getComparatorProperties() throws IOException {
+		Properties properties = new Properties();
+		properties.load(java.lang.Object.class.getResourceAsStream("/comparator.properties"));
+		HashMap<String, String> comparatorProperties = new HashMap<>();
+		comparatorProperties.put("temperatureVarianceForCelsius", properties.getProperty("temperatureVarianceForCelsius"));
+		comparatorProperties.put("temperatureVarianceForFahrenheit", properties.getProperty("temperatureVarianceForFahrenheit"));
+		comparatorProperties.put("humidityVariance", properties.getProperty("humidityVariance"));
+		
+		return comparatorProperties;
 	}
 
 }

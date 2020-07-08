@@ -40,11 +40,14 @@ public class WeatherPage extends PageHandler {
 
 	@FindBy(xpath = "//*[contains(@href, 'close')]")
 	WebElement popOverClose;
+	
+	@FindBy(xpath = "//b[contains(text(), 'Humidity')]")
+	WebElement humidity;
 
 	private final String xpathOfParentMap = "//*[contains(@class, 'leaflet-marker-pane')]";
 	private final String xpathOfMapElements = "//*[contains(@class, 'leaflet-marker-icon')]";
-	private final String xpathOfTemperatureElement = "//*[@title='cityToAppear']//*[@class='tempRedText']";
-
+	private final String xpathOfTemperatureElementCelsius = "//*[@title='cityToAppear']//*[@class='tempRedText']";
+	private final String xpathOfTemperatureElementFahrenheit = "//*[@title='cityToAppear']//*[@class='tempWhiteText']";
 
 	protected WeatherPage initializeElements() {
 		PageFactory.initElements(PageHandler.driver, this);
@@ -63,14 +66,12 @@ public class WeatherPage extends PageHandler {
 				collect(toCollection(ArrayList<String>::new));
 	}
 
-	protected void selectCities(String[] citiesToBeSelected) {
+	protected void selectCity(String city) {
 		waitTillVisibilityOfElement(2, cityListPane);
 		if(elementExists(xpathOfMapElements)) { 
 			waitTillVisibilityOfAllElements(3, mapElements);
 		}
-		Arrays.asList(citiesToBeSelected).forEach(city -> {
-			getElementById(city).click();
-		});
+		getElementById(city).click();
 	}
 
 	protected ArrayList<String> getSelectedCities() {
@@ -101,8 +102,8 @@ public class WeatherPage extends PageHandler {
 	protected HashMap<String, String> getTemperatureDetailsForSelectedCities(ArrayList<String> selectedCities) {
 		HashMap<String, String> cityTempDetails = new HashMap<>();
 		selectedCities.forEach(city -> {
-			String xpath = xpathOfTemperatureElement.replace("cityToAppear", city);
-			getElementByXpath(xpath).click();
+			String xpath = xpathOfTemperatureElementCelsius.replace("cityToAppear", city);
+			getElementByXpath(xpath).click(); //Clicking on temperature to get the weather info
 			waitTillVisibilityOfElement(3, temperatureDetailsPopOver);
 			String tempDetails = temperatureDetailsPopOver.getText();
 			cityTempDetails.put(city, tempDetails);
@@ -112,7 +113,30 @@ public class WeatherPage extends PageHandler {
 	}
 
 	protected void unselectAllCities(ArrayList<String> selectedCities) {
-		selectedCities.forEach(city -> getElementById(city).click());	
+		selectedCities.forEach(city -> {
+			WebElement cityInMap = getElementByXpath("//*[@class='cityText' and text()='"+city+"']");
+			getElementById(city).click();
+			waitTillElementToBeInvisible(2, cityInMap);
+		});	
+	}
+	
+	protected HashMap<String, String> getWeatherInfo(String city) {
+		selectCity(city);
+		String temperatureInCelsius = getElementByXpath(xpathOfTemperatureElementCelsius.replace("cityToAppear", city))
+				.getText().replaceAll("\\D", "");
+		String temperatureInFahrenheit = getElementByXpath(xpathOfTemperatureElementFahrenheit.replace("cityToAppear", city))
+				.getText().replaceAll("\\D", "");
+		getElementByXpath(xpathOfTemperatureElementCelsius.replace("cityToAppear", city)).click();
+		waitTillVisibilityOfElement(3, temperatureDetailsPopOver);
+		String humidityDetails = humidity.getText().replaceAll("\\D", "");
+		popOverClose.click();
+		
+		HashMap<String, String> weatherInfo = new HashMap<>();
+		weatherInfo.put("temperature in Celsius", temperatureInCelsius);
+		weatherInfo.put("temperature in Fahrenheit", temperatureInFahrenheit);
+		weatherInfo.put("humidity", humidityDetails);
+		
+		return weatherInfo;
 	}
 
 }

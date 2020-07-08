@@ -54,6 +54,9 @@
 			<resource>
 				<directory>src/test/java/resources/json-schemas</directory>
 			</resource>
+			<resource>
+				<directory>${project.basedir}</directory>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>

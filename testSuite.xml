@@ -4,12 +4,17 @@
 		<classes>
 			<class name="org.testVagrant.interviewAssignment.pageObjects.PageHandler" />
 			<class name="org.testVagrant.interviewAssignment.pageObjects.WeatherPage" />
-			<class name="org.testVagrant.interviewAssignment.regressionTest.WeatherPageTest" />
+ 			<class name="org.testVagrant.interviewAssignment.regressionTest.WeatherPageTest" />
 		</classes>
 	</test>
 	<test name="Weather API">
 		<classes>
 			<class name="org.testVagrant.interviewAssignment.regressionTest.WeatherAPITest" />
+		</classes>
+	</test>
+	<test name="Weather API Vs UI Comparator">
+		<classes>
+			<class name="org.testVagrant.interviewAssignment.regressionTest.UIAPIComparator" />
 		</classes>
 	</test>
 </suite>
